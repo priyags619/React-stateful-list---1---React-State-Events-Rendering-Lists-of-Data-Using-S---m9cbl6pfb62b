@@ -1,5 +1,4 @@
-import React from 'react'
-
+import React,{useState} from 'react'
 import '../styles/App.css';
 
 const data = {
@@ -27,10 +26,31 @@ const data = {
   ]
 }
 const App = () => {
+  const [movies , setMovies] = useState([]);
+  const [year , setYear] = useState("");
+  const showMovies = (e) => {
+    if(e.target.value === "") setMovies([]);
+    else{
+
+      setMovies(data[e.target.value]);
+      setYear(e.target.value);
+    }
+ }
 
   return (
     <div id="main">
-      
+      <select name="" id="" onChange={showMovies}>
+        <option value={null} selected></option>
+         {Object.keys(data).map((year) => <option key={year} value={year}>{year}</option>)}
+      </select>
+      <div id='selected-year'>
+        {movies == "" ? "No year selected" : <span>Selected year-{year}</span>}
+        <ul>
+        {movies.map(movie => {
+          return <li key={movie}>{movie}</li>;
+        })}
+        </ul>
+      </div>
     </div>
   )
 }
